@@ -1,0 +1,30 @@
+.header_layout {
+  width: 100%;
+  height: 50px;
+  color: #fff;
+  padding: 2px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.logo_header_wrapper {
+  width: 100px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo_header_wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 830px) {
+  .header_layout {
+    justify-content: center;
+    border-bottom: 1px solid #222;
+  }
+}

@@ -1,0 +1,12 @@
+.event_box_wrapper {
+  width: 470px;
+  min-height: 430px;
+  border-radius: 7.5px;
+  border: 1px solid #222;
+}
+
+@media (max-width: 830px) {
+  .event_box_wrapper {
+    width: 100%;
+  }
+}

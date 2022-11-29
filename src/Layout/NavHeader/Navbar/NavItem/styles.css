@@ -1,0 +1,20 @@
+.nav__item a {
+  display: inline-block;
+  font-size: 14px;
+  padding: 6px 10px;
+
+  border-radius: 17.5px;
+  border: 1px solid #181818;
+  color: #aaa;
+  font-weight: 800;
+  background: #181818;
+  margin: 10px 5px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.nav__item a.active {
+  color: #111;
+  background: #fdfdfd;
+  border: 1px solid #fdfdfd;
+}
