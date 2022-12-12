@@ -1,14 +1,26 @@
 import React, { useContext } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { SportTypeContext } from "../../context";
 import { IMG_URL } from "../../data";
 import { returnDate } from "../../helpers";
 import { MatchScore } from "../SmallComponents/MatchScores";
+import { setSingleGame } from "../../redux/game-slice";
 import "./styles.css";
 
 export const EventByGame = ({ game }) => {
   const { type } = useContext(SportTypeContext);
+  const dispatch = useDispatch();
+  const onGameHandler = () => {
+    localStorage.setItem("singleGame", JSON.stringify(game));
+    dispatch(setSingleGame({ game }));
+  };
   return (
-    <div className="game_event_card">
+    <div
+      // to={`/${game.Eid}`}
+      onClick={onGameHandler}
+      className="game_event_card"
+    >
       <div className="event_card_main_info">
         {game.Eps !== "NS" ? <div className="live_game_indicator"></div> : ""}
         {game.Eps !== "NS" ? (

@@ -7,6 +7,9 @@
   justify-content: space-between;
   background-color: #181818;
   border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #aaa;
   /* justify-content: space-between; */
 }
 
@@ -137,4 +140,14 @@
   left: -16px;
   top: 0;
   color: #f2ff00;
+}
+
+@media (max-width: 830px) {
+  .tennis_card_scores_info_set {
+    min-width: 20px;
+  }
+
+  .tennis_card_scores_info_game .event_result {
+    font-size: 14px;
+  }
 }

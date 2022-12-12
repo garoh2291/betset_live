@@ -6,7 +6,6 @@ import "./styles.css";
 export const EventsByLeague = ({ league }) => {
   const { type } = useContext(SportTypeContext);
   const { Events } = league;
-  console.log(league);
   return (
     <div className="league_match_wrapper">
       <div className="league_info">

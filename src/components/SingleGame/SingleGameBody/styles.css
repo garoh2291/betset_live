@@ -1,12 +1,20 @@
-.event_box_wrapper {
+.single_game_body_wrapper {
   width: 470px;
   min-height: 430px;
   border-radius: 7.5px;
   border: 1px solid #222;
 }
 
+.single_game_body_filter {
+  width: 96%;
+  height: 40px;
+  margin: 10px auto;
+  display: flex;
+  align-items: center;
+}
+
 @media (max-width: 830px) {
-  .event_box_wrapper {
+  .single_game_body_wrapper {
     width: 100%;
     min-height: unset;
     height: auto;

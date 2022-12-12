@@ -1,26 +1,25 @@
 import React, { useContext, useEffect, useState } from "react";
 import { SportTypeContext } from "../../context";
 import { useDispatch } from "react-redux";
-import { SetGamesThunk } from "../../redux/game-slice";
+import { SetDateGamesThunk, SetLiveGamesThunk } from "../../redux/game-slice";
 
 import "./styles.css";
 import { EventFilter } from "../EventFilter";
 import { EventBody } from "../EventBody";
 
 export const EventBox = () => {
-  const { type } = useContext(SportTypeContext);
+  const { type, active, date } = useContext(SportTypeContext);
   const [fetching, setFetching] = useState(true);
   const dispatch = useDispatch();
 
-  //   const today = moment(new Date()).format("YYYYMMDD");
-  //   console.log(today);
-
   useEffect(() => {
     if (fetching) {
-      dispatch(SetGamesThunk(type));
+      active
+        ? dispatch(SetLiveGamesThunk(type))
+        : dispatch(SetDateGamesThunk({ type, date }));
     }
     setFetching(false);
-  }, [fetching, type, dispatch]);
+  }, [fetching, type, dispatch, active, date]);
 
   // useEffect(() => {
   //   const select = setInterval(() => {

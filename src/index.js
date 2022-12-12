@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
 import store from "./redux";
+import Input from "./App";
 
 const app = (
   <Provider store={store}>

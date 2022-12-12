@@ -6,6 +6,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+IT : 36 Goal | 39 Own Goal | 37 penalty | 43 yellow | 38 non shoot penalty | 44 second Yellow | 45 directly red |
+NM : 1| 2 sides
+
 ### `npm start`
 
 Runs the app in the development mode.\

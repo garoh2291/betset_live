@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_KEY, BACKEND_URL } from "../../data";
+import { localGame } from "../../helpers";
 
 const timeZone = -(new Date().getTimezoneOffset() / 60);
 
-const options = {
+export const options = {
   method: "GET",
   headers: {
     "X-RapidAPI-Key": API_KEY,
@@ -11,21 +12,8 @@ const options = {
   },
 };
 
-export const SetGamesThunk = createAsyncThunk(
+export const SetLiveGamesThunk = createAsyncThunk(
   "games/SetGamesThunk",
-  // function (type, { dispatch, rejectWithValue }) {
-  //   fetch(
-  //     `${BACKEND_URL}/list-live?Category=${type}&Timezone=${timeZone}`,
-  //     options
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       const games = data.Stages;
-  //       dispatch(setGames({ games }));
-  //     })
-  //     .catch((err) => rejectWithValue(err.message));
-  // }
-
   async function (type, { rejectWithValue }) {
     try {
       const response = await fetch(
@@ -43,6 +31,25 @@ export const SetGamesThunk = createAsyncThunk(
   }
 );
 
+export const SetDateGamesThunk = createAsyncThunk(
+  "games/SetDateGamesThunk",
+  async function ({ type, date }, { rejectWithValue }) {
+    try {
+      const response = await fetch(
+        `${BACKEND_URL}/list-by-date?Category=${type}&Date=${date}&Timezone=${timeZone}`,
+        options
+      );
+      if (!response.ok) {
+        throw new Error("Something is wrong");
+      }
+      const data = await response.json();
+      return data.Stages;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const setError = (state, action) => {
   state.status = "rejected";
   state.error = action.payload;
@@ -51,6 +58,7 @@ const setError = (state, action) => {
 export const gameSlice = createSlice({
   name: "games",
   initialState: {
+    singleGame: localGame(),
     games: null,
     status: null,
     error: null,
@@ -63,20 +71,36 @@ export const gameSlice = createSlice({
         games: gamesFromBackend,
       };
     },
+    setSingleGame(state, action) {
+      const choosenGame = action.payload.game;
+      return {
+        ...state,
+        singleGame: choosenGame,
+      };
+    },
   },
   extraReducers: {
-    [SetGamesThunk.pending]: (state) => {
+    [SetLiveGamesThunk.pending]: (state) => {
       state.status = "loading";
       state.error = null;
     },
-    [SetGamesThunk.fulfilled]: (state, action) => {
+    [SetLiveGamesThunk.fulfilled]: (state, action) => {
       state.status = "resolved";
       state.games = action.payload;
     },
-    [SetGamesThunk.rejected]: setError,
+    [SetLiveGamesThunk.rejected]: setError,
+    [SetDateGamesThunk.pending]: (state) => {
+      state.status = "loading";
+      state.error = null;
+    },
+    [SetDateGamesThunk.fulfilled]: (state, action) => {
+      state.status = "resolved";
+      state.games = action.payload;
+    },
+    [SetDateGamesThunk.rejected]: setError,
   },
 });
 
-export const { setGames } = gameSlice.actions;
+export const { setGames, setSingleGame } = gameSlice.actions;
 
 export default gameSlice.reducer;
